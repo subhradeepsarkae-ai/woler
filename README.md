@@ -16,19 +16,26 @@ yay -S woler
 
 ### Pre-built binary
 ```bash
-curl -sSL https://github.com/YOUR_USER/woler/releases/latest/download/woler-x86_64-linux.tar.gz | tar xz -C ~/.local/bin
+# One-liner
+curl -fsSL https://raw.githubusercontent.com/subhradeepsarkae-ai/woler/main/install.sh | sh
+
+# Or manual download
+curl -sSL https://github.com/subhradeepsarkae-ai/woler/releases/latest/download/woler-x86_64-linux.tar.gz | tar xz -C ~/.local/bin
 ```
 
 ## Usage
 
 ```
 woler                # Open the TUI browser
-woler list           # List all packages
-woler list --apps    # GUI applications only
-woler list --clis    # CLI tools only
-woler list --libs    # Libraries only
-woler list -s firefox  # Search by name/description
-woler remove firefox   # Remove a package
+woler --app          # TUI filtered to Apps (with delete)
+woler --cli          # TUI filtered to CLIs (with delete)
+woler --lib          # TUI filtered to Libs (with delete)
+woler list           # List all packages to stdout
+woler list --apps    # GUI apps to stdout
+woler list --clis    # CLI tools to stdout
+woler list --libs    # Libraries to stdout
+woler list -s <term> # Search by name/description
+woler remove <pkg>   # Remove a package
 woler refresh        # Force cache refresh
 ```
 

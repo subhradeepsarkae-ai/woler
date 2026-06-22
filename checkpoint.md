@@ -81,7 +81,7 @@ Note: A package can be both **App** and **CLI** (e.g. firefox, kitty). The `--ap
 - Local git repo at `/home/bro/Projects/woler`
 - Branch: `main`
 - Remote: `https://github.com/subhradeepsarkae-ai/woler.git`
-- Pushed: ✅ (4 commits)
+- Pushed: ✅ (6 commits)
 
 ## Install
 

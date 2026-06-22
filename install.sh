@@ -2,7 +2,7 @@
 set -euo pipefail
 
 REPO="subhradeepsarkae-ai/woler"
-VERSION="v0.1.0"
+VERSION="v0.1.1"
 BIN_NAME="woler"
 INSTALL_DIR="${INSTALL_DIR:-$HOME/.local/bin}"
 
