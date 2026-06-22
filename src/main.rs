@@ -63,7 +63,16 @@ fn main() -> Result<()> {
     let has_filter = cli.app || cli.cli || cli.lib;
 
     match cli.command {
-        None if has_filter => cmd_list(cli.app, cli.cli, cli.lib, None)?,
+        None if has_filter => {
+            let tab = if cli.app {
+                Some(app::Tab::Apps)
+            } else if cli.cli {
+                Some(app::Tab::Clis)
+            } else {
+                Some(app::Tab::Libraries)
+            };
+            app::run_tui_with_tab(tab)?;
+        }
         None => app::run_tui()?,
         Some(Commands::List {
             apps,

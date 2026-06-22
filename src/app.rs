@@ -15,7 +15,7 @@ use std::io::stdout;
 use std::time::Duration;
 
 #[derive(Clone, Copy, PartialEq, Eq)]
-enum Tab {
+pub enum Tab {
     All,
     Apps,
     Clis,
@@ -68,18 +68,20 @@ pub struct App {
     total_apps: usize,
     total_clis: usize,
     total_libs: usize,
+    quit: bool,
 }
 
 impl App {
-    fn new(packages: Vec<Package>) -> Self {
+    fn new(packages: Vec<Package>, initial_tab: Option<Tab>) -> Self {
         let (apps, clis, libs) = db::packages_by_category(&packages);
         let filtered: Vec<usize> = (0..packages.len()).collect();
-        App {
+        let tab = initial_tab.unwrap_or(Tab::All);
+        let mut app = App {
             packages,
             filtered,
             selected: 0,
             scroll: 0,
-            tab: Tab::All,
+            tab,
             mode: Mode::Browse,
             search: String::new(),
             show_detail: false,
@@ -89,7 +91,10 @@ impl App {
             total_apps: apps,
             total_clis: clis,
             total_libs: libs,
-        }
+            quit: false,
+        };
+        app.filter();
+        app
     }
 
     fn filter(&mut self) {
@@ -231,6 +236,10 @@ fn load_packages_internal() -> Result<Vec<Package>> {
 }
 
 pub fn run_tui() -> Result<()> {
+    run_tui_with_tab(None)
+}
+
+pub fn run_tui_with_tab(initial_tab: Option<Tab>) -> Result<()> {
     let packages = load_packages_internal()?;
     let (apps, clis, libs) = db::packages_by_category(&packages);
 
@@ -240,7 +249,7 @@ pub fn run_tui() -> Result<()> {
     let mut terminal = ratatui::Terminal::new(ratatui::backend::CrosstermBackend::new(stdout))?;
     terminal.clear()?;
 
-    let mut app = App::new(packages);
+    let mut app = App::new(packages, initial_tab);
     app.status_message = format!(
         "Packages: {}  Apps: {}  CLIs: {}  Libs: {}  |  Cache saved",
         app.packages.len(),
@@ -281,6 +290,10 @@ fn run_loop<B: ratatui::backend::Backend>(
                 Mode::Deleting => {}
             }
         }
+
+        if app.quit {
+            break Ok(());
+        }
     }
 }
 
@@ -291,7 +304,7 @@ fn handle_browse<B: ratatui::backend::Backend>(
 ) {
     match key.code {
         KeyCode::Char('q') => {
-            std::process::exit(0);
+            app.quit = true;
         }
         KeyCode::Char('?') => {
             app.status_message = String::from(
