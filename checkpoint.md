@@ -29,14 +29,14 @@
 
 ```
 woler                 Open the TUI browser
+woler --app           Open TUI filtered to Apps tab
+woler --cli           Open TUI filtered to CLIs tab
+woler --lib           Open TUI filtered to Libs tab
 woler list            List all packages to stdout
-woler list --apps     GUI applications only
-woler list --clis     CLI tools only
-woler list --libs     Libraries only
-woler list -s <term>  Search by name/description
-woler --app           Short for: list --apps
-woler --cli           Short for: list --clis
-woler --lib           Short for: list --libs
+woler list --apps     GUI applications only (stdout)
+woler list --clis     CLI tools only (stdout)
+woler list --libs     Libraries only (stdout)
+woler list -s <term>  Search by name/description (stdout)
 woler remove <pkg>    Remove a package (sudo pacman -Rns)
 woler refresh         Force rebuild cache
 ```
@@ -81,7 +81,7 @@ Note: A package can be both **App** and **CLI** (e.g. firefox, kitty). The `--ap
 - Local git repo at `/home/bro/Projects/woler`
 - Branch: `main`
 - Remote: `https://github.com/subhradeepsarkae-ai/woler.git`
-- Pushed: ✅ (3 commits)
+- Pushed: ✅ (4 commits)
 
 ## Install
 
@@ -96,12 +96,14 @@ cargo install --git https://github.com/subhradeepsarkae-ai/woler
 ## Test Results
 
 ```
-woler list           → 934 packages listed
-woler list --apps    → 52 GUI apps
-woler list --clis    → 438 CLI tools
-woler list --libs    → 491 libraries
-woler list -s vim    → 5 matches
-woler --app          → 52 GUI apps (top-level flag)
-woler refresh        → rescanned and cached
-woler (TUI)          → renders with all features
+woler list            → 934 packages listed
+woler list --apps     → 52 GUI apps
+woler list --clis     → 438 CLI tools
+woler list --libs     → 491 libraries
+woler list -s vim     → 5 matches
+woler --app           → TUI opens on Apps tab (delete works)
+woler --cli           → TUI opens on CLIs tab (delete works)
+woler --lib           → TUI opens on Libs tab (delete works)
+woler (TUI) q         → terminal fully restored after quit
+woler refresh         → rescanned and cached
 ```
