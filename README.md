@@ -6,7 +6,7 @@ Browse, search, and remove installed Arch Linux packages — all from your termi
 
 ### With Rust toolchain
 ```bash
-cargo install --git https://github.com/YOUR_USER/woler
+cargo install --git https://github.com/subhradeepsarkae-ai/woler
 ```
 
 ### AUR (once submitted)

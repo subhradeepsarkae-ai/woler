@@ -3,7 +3,7 @@ name = "woler"
 version = "0.1.0"
 edition = "2021"
 description = "Installed package browser for Arch Linux"
-repository = "https://github.com/YOUR_USER/woler"
+repository = "https://github.com/subhradeepsarkae-ai/woler"
 
 [dependencies]
 ratatui = "0.29"
