@@ -1,0 +1,21 @@
+[package]
+name = "woler"
+version = "0.1.0"
+edition = "2021"
+description = "Installed package browser for Arch Linux"
+repository = "https://github.com/YOUR_USER/woler"
+
+[dependencies]
+ratatui = "0.29"
+crossterm = "0.28"
+serde = { version = "1", features = ["derive"] }
+rmp-serde = "1"
+clap = { version = "4", features = ["derive"] }
+chrono = "0.4"
+anyhow = "1"
+
+[profile.release]
+strip = true
+lto = true
+codegen-units = 1
+opt-level = "z"
